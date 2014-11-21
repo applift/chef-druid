@@ -69,12 +69,7 @@ action :install do
     mode "0755"
   end
 
-  # Clone doesn't seem to work on node
-  common_props = node[:druid][:properties].inject(Hash.new) { |h, (k, v)| h[k] = v unless v.is_a?(Hash); h }
-  type_specific_props = node[:druid][node_type][:properties].inject(Hash.new) { |h, (k, v)| h[k] = v unless v.is_a?(Hash); h }
-
-  props = common_props.merge(type_specific_props)
-  props["druid.service"] = node_type
+  props = ChefDruid::NodePropertiesHelper.node_properties(node, node_type)
 
   template ::File.join(node[:druid][:config_dir], node_type, "runtime.properties") do
     source "properties.erb"
