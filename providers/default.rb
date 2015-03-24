@@ -69,6 +69,17 @@ action :install do
     mode "0755"
   end
 
+  data_dirs = node[:druid][node_type][:data_dirs] || node[:druid][:data_dirs]
+
+  data_dirs.each do |dir|
+    directory dir do
+      recursive true
+      owner node[:druid][:user]
+      group node[:druid][:group]
+      mode "0755"
+    end
+  end
+
   props = ChefDruid::NodePropertiesHelper.node_properties(node, node_type)
 
   template ::File.join(node[:druid][:config_dir], node_type, "runtime.properties") do
