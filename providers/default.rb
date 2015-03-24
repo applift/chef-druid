@@ -109,6 +109,12 @@ action :install do
               })
   end
 
+  logs = node[:druid][node_type][:logs] || node[:druid][:logs]
+  template ::File.join(node[:druid][:config_dir], node_type, "log4j.xml") do
+    source "log4j.xml.erb"
+    variables(logs: logs)
+  end
+
   service "druid-#{node_type}" do
     provider Chef::Provider::Service::Upstart
     supports :restart => true, :start => true, :stop => true

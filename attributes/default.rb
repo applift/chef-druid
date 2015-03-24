@@ -32,6 +32,19 @@ default[:druid][:overlord][:properties]["druid.port"] = 8084
 default[:druid][:indexer][:properties]["druid.port"] = 8085
 default[:druid][:middleManager][:properties]["druid.port"] = 8086
 
+# General logs
+default[:druid][:logs][:general][:filename] = '/etc/druid/logs/druid.log'
+default[:druid][:logs][:general][:level] = 'WARN'
+default[:druid][:logs][:general][:max_size] = '100Mb'
+default[:druid][:logs][:general][:max_backup_index] = 5
+
+# Event emmiter logs
+default[:druid][:logs][:emmiter][:filename] = '/etc/druid/logs/emmiter.log'
+default[:druid][:logs][:emmiter][:level] = 'INFO'
+default[:druid][:logs][:emmiter][:max_size] = '100Mb'
+default[:druid][:logs][:emmiter][:max_backup_index] = 5
+
+
 # Other
 default['java']['jdk_version'] = '7'
 
