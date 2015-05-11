@@ -14,6 +14,7 @@ default[:druid][:group] = "druid"
 default[:druid][:install_dir] = "/opt/druid"
 default[:druid][:config_dir] = "/etc/druid"
 default[:druid][:data_dirs] = []
+default[:druid][:druid_dir_prefix] = "druid-services"
 
 # Configuration defaults
 default[:druid][:log_to_syslog] = 1
