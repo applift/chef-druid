@@ -69,6 +69,17 @@ action :install do
     mode "0755"
   end
 
+  data_dirs = node[:druid][node_type][:data_dirs] || node[:druid][:data_dirs]
+
+  data_dirs.each do |dir|
+    directory dir do
+      recursive true
+      owner node[:druid][:user]
+      group node[:druid][:group]
+      mode "0755"
+    end
+  end
+
   props = ChefDruid::NodePropertiesHelper.node_properties(node, node_type)
 
   template ::File.join(node[:druid][:config_dir], node_type, "runtime.properties") do
@@ -96,6 +107,12 @@ action :install do
                   :port => props["druid.port"],
                   :extra_classpath => (extra_classpath.nil? || extra_classpath.empty?) ? "" : "#{extra_classpath}:"
               })
+  end
+
+  logs = node[:druid][node_type][:logs] || node[:druid][:logs]
+  template ::File.join(node[:druid][:config_dir], node_type, "log4j.xml") do
+    source "log4j.xml.erb"
+    variables(logs: logs)
   end
 
   service "druid-#{node_type}" do

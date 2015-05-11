@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+  <appender name="generalAppender" class="org.apache.log4j.RollingFileAppender">
+    <param name="File" value="<%= @logs[:general][:filename]%>" />
+    <param name="Threshold" value="<%= @logs[:general][:level]%>" />
+    <param name="MaxFileSize" value="<%= @logs[:general][:max_size]%>" />
+    <param name="MaxBackupIndex" value="<%= @logs[:general][:max_backup_index]%>" />
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d %-5p  [%c{1}] %m %n" />
+    </layout>
+  </appender>
+
+  <appender name="consoleAppender" class="org.apache.log4j.ConsoleAppender">
+      <param name="Threshold" value="INFO" />
+      <layout class="org.apache.log4j.PatternLayout">
+          <param name="ConversionPattern" value="%d %-5p  [%c{1}] %m %n" />
+      </layout>
+  </appender>
+
+  <appender name="emmiterAppender" class="org.apache.log4j.RollingFileAppender">
+    <param name="File" value="<%= @logs[:emmiter][:filename]%>" />
+    <param name="Threshold" value="<%= @logs[:emmiter][:level]%>" />
+    <param name="MaxFileSize" value="<%= @logs[:emmiter][:max_size]%>" />
+    <param name="MaxBackupIndex" value="<%= @logs[:emmiter][:max_backup_index]%>" />
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%m %n" />
+    </layout>
+   </appender>
+
+  <logger name="com.metamx.emitter.core.LoggingEmitter">
+    <appender-ref ref="emmiterAppender" />
+  </logger>
+
+  <root>
+    <appender-ref ref="generalAppender" />
+    <appender-ref ref="consoleAppender" />
+  </root>
+</log4j:configuration>

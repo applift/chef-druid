@@ -13,6 +13,7 @@ default[:druid][:user] = "druid"
 default[:druid][:group] = "druid"
 default[:druid][:install_dir] = "/opt/druid"
 default[:druid][:config_dir] = "/etc/druid"
+default[:druid][:data_dirs] = []
 
 # Configuration defaults
 default[:druid][:log_to_syslog] = 1
@@ -30,6 +31,19 @@ default[:druid][:historical][:properties]["druid.port"] = 8083
 default[:druid][:overlord][:properties]["druid.port"] = 8084
 default[:druid][:indexer][:properties]["druid.port"] = 8085
 default[:druid][:middleManager][:properties]["druid.port"] = 8086
+
+# General logs
+default[:druid][:logs][:general][:filename] = '/etc/druid/logs/druid.log'
+default[:druid][:logs][:general][:level] = 'WARN'
+default[:druid][:logs][:general][:max_size] = '100Mb'
+default[:druid][:logs][:general][:max_backup_index] = 5
+
+# Event emmiter logs
+default[:druid][:logs][:emmiter][:filename] = '/etc/druid/logs/emmiter.log'
+default[:druid][:logs][:emmiter][:level] = 'INFO'
+default[:druid][:logs][:emmiter][:max_size] = '100Mb'
+default[:druid][:logs][:emmiter][:max_backup_index] = 5
+
 
 # Other
 default['java']['jdk_version'] = '7'
