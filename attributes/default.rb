@@ -35,14 +35,16 @@ default[:druid][:middleManager][:properties]["druid.port"] = 8086
 
 # General logs
 default[:druid][:logs][:general][:filename] = '/etc/druid/logs/druid.log'
-default[:druid][:logs][:general][:level] = 'WARN'
-default[:druid][:logs][:general][:max_size] = '100Mb'
+default[:druid][:logs][:general][:file_pattern] = '/etc/druid/logs/druid-%i.log.gz'
+default[:druid][:logs][:general][:level] = 'warn'
+default[:druid][:logs][:general][:max_size] = '100 MB'
 default[:druid][:logs][:general][:max_backup_index] = 5
 
 # Event emmiter logs
 default[:druid][:logs][:emmiter][:filename] = '/etc/druid/logs/emmiter.log'
-default[:druid][:logs][:emmiter][:level] = 'INFO'
-default[:druid][:logs][:emmiter][:max_size] = '100Mb'
+default[:druid][:logs][:emmiter][:file_pattern] = '/etc/druid/logs/emmiter-%i.log.gz'
+default[:druid][:logs][:emmiter][:level] = 'info'
+default[:druid][:logs][:emmiter][:max_size] = '100 MB'
 default[:druid][:logs][:emmiter][:max_backup_index] = 5
 
 

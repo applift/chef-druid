@@ -110,8 +110,8 @@ action :install do
   end
 
   logs = node[:druid][node_type][:logs] || node[:druid][:logs]
-  template ::File.join(node[:druid][:config_dir], node_type, "log4j.xml") do
-    source "log4j.xml.erb"
+  template ::File.join(node[:druid][:config_dir], node_type, "log4j2.xml") do
+    source "log4j2.xml.erb"
     variables(logs: logs)
   end
 
