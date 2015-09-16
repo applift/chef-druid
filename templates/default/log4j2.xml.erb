@@ -1,0 +1,42 @@
+<Configuration status="WARN">
+    <Appenders>
+        <RollingFile name="GeneralAppender" fileName="<%= @logs[:general][:filename] %>" filePattern="<%= @logs[:general][:file_pattern] %>">
+           <PatternLayout>
+               <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+           </PatternLayout>
+           <Policies>
+               <SizeBasedTriggeringPolicy size="<%= @logs[:general][:max_size] %>"/>
+           </Policies>
+           <DefaultRolloverStrategy max="<%= @logs[:general][:max_backup_index] %>"/>
+        </RollingFile>
+
+        <RollingFile name="EmmiterAppender" fileName="<%= @logs[:emmiter][:filename] %>" filePattern="<%= @logs[:emmiter][:file_pattern] %>">
+           <PatternLayout>
+               <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+           </PatternLayout>
+           <Policies>
+               <SizeBasedTriggeringPolicy size="<%= @logs[:emmiter][:max_size] %>"/>
+           </Policies>
+           <DefaultRolloverStrategy max="<%= @logs[:emmiter][:max_backup_index] %>"/>
+        </RollingFile>
+
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+          <PatternLayout>
+               <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+           </PatternLayout>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="c.m.e.c.LoggingEmitter" level="<%= @logs[:emmiter][:level] %>">
+            <AppenderRef ref="EmmiterAppender"/>
+        </Logger>
+
+        <Root level="<%= @logs[:general][:level] %>">
+            <AppenderRef ref="GeneralAppender"/>
+            <% if @logs[:general][:console] %>
+              <AppenderRef ref="ConsoleAppender"/>
+            <% end %>
+        </Root>
+    </Loggers>
+</Configuration>
